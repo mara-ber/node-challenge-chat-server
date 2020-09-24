@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+app.use(express.json());
 
 app.use(cors());
 
@@ -20,4 +21,14 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + "/index.html");
 });
 
-app.listen(process.env.PORT);
+app.get("/messages", function (req, res) {
+  res.send(messages);
+})
+
+app.post("/messages", function (req, res) {
+  const newMessage = req.body;
+  messages.push(newMessage);
+  res.send(newMessage);
+})
+
+app.listen(3100)
